@@ -1,11 +1,24 @@
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 from time import sleep
 
-####>DOWNLOAD MUSIC FILES####
+####>DOWNLOAD MUSIC FILES<####
 page = int(input('pages: '))
-driver = webdriver.Chrome(executable_path='./chromedriver')
+try:
+	try:
+		chrome_options = webdriver.ChromeOptions()
+
+		#########>Change to your dir<#########
+		prefs = {'download.default_directory' : '/home/padhiyar/Downloads/down'}
+		chrome_options.add_experimental_option('prefs', prefs)
+		driver = webdriver.Chrome(chrome_options=chrome_options, executable_path='./chromedriver')
+	except:
+		driver = webdriver.Chrome(executable_path='./chromedriver')
+except:
+	#####>for windows<#####
+	driver = webdriver.Chrome()
+
 for i in range(page):
     driver.get('https://www.pagalworld.mobi/top-songs.html?page={}'.format(i+1))
     for i in range(25):
